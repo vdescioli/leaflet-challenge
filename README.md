@@ -1,6 +1,8 @@
 # leaflet-challenge
 Main Directory contains index.html file and static folder which holds logic.js file
 
+Deployment link: https://vdescioli.github.io/leaflet-challenge/
+
 # Instructions
 Part 1: Create the Earthquake Visualization
 
