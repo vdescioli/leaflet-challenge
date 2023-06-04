@@ -54,15 +54,15 @@ function createMap(earthquakes) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
-
+  legend.addTo(myMap);
 }
 
 function colorByDepth(depth) {
-  if (depth<10) return "green";
-  else if(depth<30) return "greenyellow";
-  else if(depth<50) return "yellow";
+  if (depth<10) return "greenyellow";
+  else if(depth<30) return "#e9fb05";
+  else if(depth<50) return "#ffd100";
   else if(depth<70) return "orange";
-  else if(depth<90) return "orangered";
+  else if(depth<90) return "#ff7300";
   else return "red";
 };
 
@@ -76,3 +76,17 @@ function markerAttributes(feature, location) {
   }
   return L.circle(location, markers);
 };
+
+// Setting up Legend
+let legend = L.control({position: "bottomright"});
+legend.onAdd = function() {
+  var div = L.DomUtil.create("div", "info legend");
+  var limits = [-10, 10, 30, 50, 70, 90];
+  var labels = [];
+  
+  for (let i=0; i<limits.length; i++) {
+    labels.push("<ul style='background-color: " + colorByDepth(limits[i] +1) + "'> <span>" + limits[i] + (limits[i+1] ? "&ndash;" + limits[i+1] + "" : "+") + "</span></ul>")
+  }
+  div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+  return div;
+}
